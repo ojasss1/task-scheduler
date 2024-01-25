@@ -11,6 +11,7 @@ const firstmodel = require('./model');
 app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, 'build')));
 
 const firebaseConfig = {
