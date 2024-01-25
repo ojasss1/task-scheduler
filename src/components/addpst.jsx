@@ -67,14 +67,14 @@ const Addpst = () => {
         <label htmlFor="discussion_heading" style={{ marginBottom: "8px" }}>
           Title:
         </label>
-        <input name="task_heading" placeholder="Enter the title of the new thread..." required={true}
+        <input name="task_heading" placeholder="Enter the title of the new Task ..." required={true}
          value={fdata.task_heading} onChange={changefdata} style={{ padding: "8px", marginBottom: "16px", width : "70%" }}/>
         <label htmlFor="content" style={{ marginBottom: "8px" }}>
           Content:
         </label>
         <textarea
           name="description"
-          placeholder="Enter the content of the thread..."
+          placeholder="Enter the description of the Task ..."
           required={true}
           value={fdata.description}
           onChange={changefdata}

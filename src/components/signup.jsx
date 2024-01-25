@@ -17,21 +17,22 @@ const Sgnup = () => {
     const handlesubmit = (e) => {
         e.preventDefault();
         setrstext(<img src={load} height={"60px"} />);
-        fetch("https://discussion-project-h9ep.onrender.com/register", {
+        fetch("http://localhost:5000/register", {
             method : "POST",
             body : JSON.stringify(fdata),
             headers : {
                 "Content-Type" : "application/json",
             },
         })
-        .then(r => r.text())
+        .then(r => r.json())
         .then(d => {
             // console.log(d);
-            setrstext(d);
-            if (d === "registered"){
+            setrstext(d.msg);
+            if (d.msg === "registered"){
                 setTimeout(() => {
                     navv("/home", { state: { userid: fdata.username } });
                     localStorage.setItem("userid", fdata.username);
+                    localStorage.setItem("uuid", d.uuid);
                 }, 1000);
             }
         })

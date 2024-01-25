@@ -7,9 +7,6 @@ import { Link } from "react-router-dom";
 
 const TaskList = () => {
   const [task, setTasks] = useState([
-    { id: 1, task_heading: "Learn React", completed: false },
-    { id: 2, task_heading: "Build a Todo App", completed: false },
-    { id: 3, task_heading: "Style the Todo App", completed: false },
   ]);
 
   const handleDeleteTask = (id) => {
@@ -65,6 +62,7 @@ const TaskList = () => {
 
   const calccompleted = (arr) => {
     var cnt = 0;
+    if (arr.length == 0) return 0;
     arr.forEach(d => {
       if (d.completed) cnt++;
     })
@@ -93,7 +91,10 @@ const TaskList = () => {
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Enter a new Task . . ."
         /> */}
-        <Link to="/addtask">Add Task</Link>
+        <Link to="/addtask" style={{backgroundColor : "#fca311",
+      padding : "4px", borderRadius : "4px",
+      color : "white",
+      }}>Add Task</Link>
       </div>
       <ul>
         {task.map((task) => (

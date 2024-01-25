@@ -3,11 +3,20 @@ const app = express();
 const {MongoClient, ObjectId} = require('mongodb');
 const  bp = require('body-parser');
 const  cors = require('cors');
+const serviceAccount =  require('./key.json');
+const admin = require('firebase-admin');
 const firstmodel = require('./model');
 
 app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
+
+const firebaseConfig = {
+    credential: admin.credential.cert(serviceAccount),
+  };
+
+admin.initializeApp(firebaseConfig);
+const db2 = admin.firestore();
 
 const getdb = async (client) => {
     const data = await client.db().admin().listDatabases();
@@ -121,6 +130,57 @@ app.post("/deltask", async(rq, rs) => {
         rs.send(e);
     }
 });
+
+app.post('/register', async(req, res) => {
+    try{
+  
+      const userid = req.body.username;
+      const passwd = req.body.passwd;
+      const email = req.body.email;
+  
+      // console.log(userid, passwd, email);
+      var uuu;
+      admin.auth()
+      .createUser({
+        email: email,
+        emailVerified: false,
+        password: passwd,
+        displayName: userid,
+      })
+      .then((userRecord) => {
+        uuu = userRecord.uid;
+        console.log('Successfully created new user:', userRecord.uid);
+        client.db("test").createCollection(uuu);
+        res.send(
+            {msg : "registered",
+            uuid : uuu,
+        }
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code == "auth/email-already-exists"){
+          res.send("User exists");
+        }
+      });
+  
+      //const r = await db.collection("Users").doc(userid);
+  
+      // r.get().then(async (doc) => {
+      //   if (!doc.exists){
+      //     const data = {password : passwd,};
+      //     await r.set(data);
+      //     res.send("registered");
+      //   }
+      //   else{
+      //     res.send("User exists");
+      //   }
+      // });
+    }
+    catch(err){
+      console.log(err); res.send(err);
+    }
+  });
 
 app.listen(5000, () => {
     console.log("running");

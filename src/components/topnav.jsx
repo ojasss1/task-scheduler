@@ -13,6 +13,7 @@ const Nv = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userid");
+    localStorage.removeItem("uuid");
     setUserid(null);
   };
 
