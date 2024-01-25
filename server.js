@@ -1,12 +1,16 @@
-const express = require('express');
+import express from 'express';
 const app = express();
+import { createRequire } from "module";  const require = createRequire(import.meta.url);
 const {MongoClient, ObjectId} = require('mongodb');
-const  bp = require('body-parser');
-const  cors = require('cors');
+import path from 'path';
+import {dirname} from 'path';
+import { fileURLToPath } from 'url';
+const cron = require('node-cron');
 const serviceAccount =  require('./key.json');
-const admin = require('firebase-admin');
-const path = require('path');
-const firstmodel = require('./model');
+import admin from 'firebase-admin';
+import bp from 'body-parser';
+import cors from 'cors';
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 app.use(cors());
 app.use(bp.json());
