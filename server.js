@@ -184,12 +184,12 @@ app.post('/register', async(req, res) => {
     }
   });
 
-app.listen(5000, () => {
-    console.log("running");
-});
-
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app.listen(5000, () => {
+    console.log("running");
 });
 
 // IX8o0S1YcyDieUXF
