@@ -53,7 +53,13 @@ const retrvdoc = async(client, uuid) => {
 
 
 
+cron.schedule('*/7 * * * *', () => {
+    fetch('https://task-scheduler-kt4g.onrender.com/keep-alive').then((res) => res.text()).then((data) => console.log(data)).catch((e) => console.log(e));
+  });
 
+  app.get('/keep-alive', (req, res) => {
+    res.send('Server is alive');
+  });
 
 
 
