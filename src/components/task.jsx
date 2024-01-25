@@ -10,7 +10,7 @@ const TaskList = () => {
   ]);
 
   const handleDeleteTask = (id) => {
-    fetch("http://localhost:5000/deltask", {
+    fetch("https://task-scheduler-kt4g.onrender.com/deltask", {
       method: "POST",
     body: JSON.stringify({
       "uuid" : localStorage.getItem("uuid"),
@@ -27,7 +27,7 @@ const TaskList = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/getall", {
+    fetch("https://task-scheduler-kt4g.onrender.com/getall", {
       method: "POST",
     body: JSON.stringify({
       "uuid" : localStorage.getItem("uuid"),

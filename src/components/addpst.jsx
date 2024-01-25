@@ -28,7 +28,7 @@ const Addpst = () => {
 
     console.log(fdata);
 
-    fetch("http://localhost:5000/add", {
+    fetch("https://task-scheduler-kt4g.onrender.com/add", {
       method: "POST",
       body: JSON.stringify(fdata),
       headers: {

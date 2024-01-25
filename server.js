@@ -5,11 +5,13 @@ const  bp = require('body-parser');
 const  cors = require('cors');
 const serviceAccount =  require('./key.json');
 const admin = require('firebase-admin');
+const path = require('path');
 const firstmodel = require('./model');
 
 app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, 'build')));
 
 const firebaseConfig = {
     credential: admin.credential.cert(serviceAccount),
@@ -67,11 +69,6 @@ const mainfn = async () => {
 }
 
 mainfn().catch(console.error);
-
-
-app.get("/", (rq, rs) => {
-    rs.send("On");
-});
 
 
 app.post("/add", async(rq, rs) => {
@@ -186,5 +183,8 @@ app.listen(5000, () => {
     console.log("running");
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // IX8o0S1YcyDieUXF

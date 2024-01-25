@@ -8,7 +8,7 @@ const TaskDetails = () => {
   const { taskId } = useParams();
   const [tasks, settasks] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/getall", {
+    fetch("https://task-scheduler-kt4g.onrender.com/getall", {
       method: "POST",
     body: JSON.stringify({
       "uuid" : localStorage.getItem("uuid"),
