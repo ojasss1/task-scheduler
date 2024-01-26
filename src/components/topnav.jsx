@@ -19,7 +19,7 @@ const Nv = () => {
 
   return (
     <div className="navv" style={nav}>
-      <img className="reeel" src={reel} style={{width : "80px", height : "80px", marginLeft : "10%", marginTop : "2.5vh",
+      <img className="reeel" src={reel} style={{height : "80px", marginLeft : "10%", marginTop : "2.5vh",
     marginRight : "2%"}} />
       {userid && <div className="usr" style={{}}>
         <div style={{overflowWrap : "break-word"}}><Link to="/profile" >{userid}</Link></div>

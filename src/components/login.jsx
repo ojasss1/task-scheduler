@@ -7,6 +7,7 @@ import { initializeApp} from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import 'firebase/auth';
 import load from "./load.gif";
+import Ham from "./ham";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC2YMy095m2EJdE6Zg4MVb7JXqLKM8EW2Y",
@@ -76,7 +77,7 @@ const Login = () => {
 
   return (
     <div>
-      <Nv />
+       {window.innerWidth < 450 ? <Ham /> : <Nv />}
       <form className="logn"
         onSubmit={handlesubmit}
         style={{display: "flex", flexDirection: "column",margin: "5% auto",padding: "20px",boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",

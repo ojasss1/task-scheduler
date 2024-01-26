@@ -72,10 +72,10 @@ const TaskList = () => {
 
   return (
     <div style={{display : "flex"}} className="main_div">
-      <div style={{ display: "flex", flex : 1, justifyContent: "space-evenly", alignItems: "center" }}>
-        <div style={{ textAlign: "center" }}>
-          <div>No of tasks: {task.length}</div>
-          <div>Completed: {
+      <div className="info_div" style={{ display: "flex", flex : 1, justifyContent: "center", alignItems: "center" }}>
+        <div style={{ textAlign: "center" ,width : "fit-content"}}>
+          <div style={{margin : "10%", whiteSpace : "nowrap"}}>No of tasks: {task.length}</div>
+          <div style={{margin : "10%", whiteSpace : "nowrap"}}>Completed: {
             calccompleted(task)
             }</div>
         </div>
@@ -109,11 +109,11 @@ const TaskList = () => {
             </div>
             </Link>
             <div>
-                {task.completed ? <img src={undo} height={"50px"}
+                {task.completed ? <img className="ii" src={undo} height={"50px"}
                  onClick={() => handleToggleComplete(task._id)}/> 
                 : 
-                <img src={complete} onClick={() => handleToggleComplete(task._id)}/>}
-              <img src={del} height={"50px"} 
+                <img className="ii" src={complete} onClick={() => handleToggleComplete(task._id)}/>}
+              <img className="ii" src={del} height={"50px"} 
               style={{marginLeft : "10px"}}
               onClick={() => handleDeleteTask(task._id)}/>
             </div>

@@ -1,12 +1,13 @@
 import Nv from "./topnav";
 import Tasklist from "./task";
+import Ham from "./ham";
 
 
 const Home = () => {
 
     return (
         <div>
-            <Nv />
+             {window.innerWidth < 450 ? <Ham /> : <Nv />}
             <Tasklist />
         </div>
     );

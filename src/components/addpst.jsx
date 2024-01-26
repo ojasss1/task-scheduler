@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nv from "./topnav";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Ham from "./ham";
 
 const Addpst = () => {
   const par = useParams();
@@ -53,7 +54,7 @@ const Addpst = () => {
 
   return (
     <div>
-      <Nv />
+      {window.innerWidth < 450 ? <Ham /> : <Nv />}
       <form
         onSubmit={submit}
         style={{

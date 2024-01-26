@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./taskpage.css";
 import Nv from "./topnav";
+import Ham from "./ham";
 
 
 const TaskDetails = () => {
@@ -26,7 +27,7 @@ const TaskDetails = () => {
 
   return (
     <>
-    <Nv />
+     {window.innerWidth < 450 ? <Ham /> : <Nv />}
     <div className="task-details-container">
       <h1 className="task-details-heading">Task Details</h1>
       {task && (

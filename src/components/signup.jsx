@@ -3,6 +3,7 @@ import Nv from "./topnav";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import load from "./load.gif";
+import Ham from "./ham";
 
 
 const Sgnup = () => {
@@ -44,7 +45,7 @@ const Sgnup = () => {
 
     return (
         <div>
-            <Nv />
+             {window.innerWidth < 450 ? <Ham /> : <Nv />}
             <form className="sgnup"onSubmit={handlesubmit} style={{display: "flex", flexDirection: "column",margin: "5% auto",padding: "20px",boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",
           borderRadius: "10px",}}>
                 <label for="username" style={{marginBottom: "8px" }}> Username </label>
