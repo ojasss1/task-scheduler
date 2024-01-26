@@ -107,15 +107,23 @@ app.post("/getall", async(rq, rs) => {
 
 app.post("/complete", async (rq, rs) => {
     try{
-        const obj = new ObjectId("65b1adc0fc5d15d07cd8e1c0");
-        const res = await client.db("test").collection('rBE0px3FFeNZfRYUwKik1903ovh1').updateOne({
-            "_id" : obj,},
-            {
-                $completed : true,
-            }
-        );
+        const coll = rq.body.uuid;
+        const id = new ObjectId(rq.body.id);
 
-        console.log(done);
+        const complt = await client.db("test").collection(coll).findOne({
+            _id : id,
+        });
+
+        await client.db("test").collection(coll).updateOne({
+            _id : id,
+        },{
+            $set : {
+                completed : !complt.completed,
+            }
+        });
+
+
+        rs.send("dd");
     }
     catch(e){
         rs.send(e);

@@ -53,11 +53,19 @@ const TaskList = () => {
   };
 
   const handleToggleComplete = (id) => {
-    setTasks(
-      task.map((task) =>
-        task._id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+    fetch("https://task-scheduler-kt4g.onrender.com/complete",  {
+      method: "POST",
+    body: JSON.stringify({
+      "uuid" : localStorage.getItem("uuid"),
+      "id" : id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(r => r.text())
+    .then()
+    .catch(e => console.log(e));
   };
 
   const calccompleted = (arr) => {
