@@ -183,7 +183,7 @@ app.post('/register', async(req, res) => {
         }
         else{
             res.send({
-                msg : error.code + ", Please try again",
+                msg : error.message + " Please try again",
                 uuid : "",
               });
         }
