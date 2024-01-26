@@ -169,7 +169,7 @@ app.post('/register', async(req, res) => {
         console.log(error);
         if (error.code == "auth/email-already-exists"){
           res.send({
-            msg : "User exists",
+            msg : "User exists, Please try again",
             uuid : "",
           });
         }
