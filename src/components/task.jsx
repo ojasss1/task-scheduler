@@ -71,7 +71,7 @@ const TaskList = () => {
   }
 
   return (
-    <div style={{display : "flex"}}>
+    <div style={{display : "flex"}} className="main_div">
       <div style={{ display: "flex", flex : 1, justifyContent: "space-evenly", alignItems: "center" }}>
         <div style={{ textAlign: "center" }}>
           <div>No of tasks: {task.length}</div>
@@ -82,7 +82,7 @@ const TaskList = () => {
       </div>
 
       <div style={{flex : 1}}>
-    <div className="task-list" style={{width : "500px"}}>
+    <div className="task-list">
       <h1>Your Tasks</h1>
       <div className="add-task" style={{justifyContent : "center"}}>
         {/* <input

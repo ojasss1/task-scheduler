@@ -1,8 +1,9 @@
-
 .task-list {
     font-family: Arial, sans-serif;
     margin: 100px 0;
     padding: 20px;
+    width: 500px;
+    max-width: 100vw;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
@@ -74,3 +75,12 @@
   }
 
   
+  @media (max-width : 450px) {
+    .main_div{
+      flex-direction: column;
+    }
+    .task-list{
+      width: 80%;
+      font-size: 25px;
+    }
+  }
