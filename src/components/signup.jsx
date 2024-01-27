@@ -18,7 +18,7 @@ const Sgnup = () => {
     const handlesubmit = (e) => {
         e.preventDefault();
         setrstext(<img src={load} height={"60px"} />);
-        fetch("http://localhost:5000/register", {
+        fetch("https://task-scheduler-kt4g.onrender.com/register", {
             method : "POST",
             body : JSON.stringify(fdata),
             headers : {
