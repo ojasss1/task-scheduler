@@ -9,24 +9,7 @@ const TaskList = () => {
   const [task, setTasks] = useState([
   ]);
 
-  const handleDeleteTask = (id) => {
-    fetch("https://task-scheduler-kt4g.onrender.com/deltask", {
-      method: "POST",
-    body: JSON.stringify({
-      "uuid" : localStorage.getItem("uuid"),
-      "id" : id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(r => (r.json()))
-  .then(d => {
-  })
-  .catch(e => {console.log(e)});
-  };
-
-
-  useEffect(() => {
+  const gettask = () => {
     fetch("https://task-scheduler-kt4g.onrender.com/getall", {
       method: "POST",
     body: JSON.stringify({
@@ -40,7 +23,28 @@ const TaskList = () => {
     setTasks(d);
   })
   .catch(e => {console.log(e)});
-  }, [handleDeleteTask])
+  }
+
+  const handleDeleteTask = (id) => {
+    fetch("https://task-scheduler-kt4g.onrender.com/deltask", {
+      method: "POST",
+    body: JSON.stringify({
+      "uuid" : localStorage.getItem("uuid"),
+      "id" : id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(r => (r.text()))
+  .then(() => {
+    gettask();
+  })
+  .catch(e => {console.log(e)});
+  };
+
+  useEffect(() => {
+    gettask();
+  }, [])
 
   const [newTask, setNewTask] = useState("");
 
@@ -64,7 +68,9 @@ const TaskList = () => {
     },
   })
     .then(r => r.text())
-    .then()
+    .then(() => {
+      gettask();
+    })
     .catch(e => console.log(e));
   };
 
