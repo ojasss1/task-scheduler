@@ -11,6 +11,21 @@ import admin from 'firebase-admin';
 import bp from 'body-parser';
 import cors from 'cors';
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const details = {
+    "uid" : "NIL",
+    "name" : "NIL",
+    "age" : "NIL",
+    "email" : "NIL",
+    "Occupation" : "NIL",
+    "Married": "NIL",
+    "Bio" : "NIL",
+    "Full_Name" : "NIL",
+    "Linkedin" : "NIL",
+    "Github" : "NIL",
+    "Instagram" : "NIL",
+    "username" : "NIL",
+    "profile_pic" : "",
+  };
 
 app.use(cors());
 app.use(bp.json());
@@ -163,7 +178,7 @@ app.post('/register', async(req, res) => {
         password: passwd,
         displayName: userid,
       })
-      .then((userRecord) => {
+      .then(async (userRecord) => {
         uuu = userRecord.uid;
         console.log('Successfully created new user:', userRecord.uid);
         client.db("test").createCollection(uuu);
@@ -172,6 +187,25 @@ app.post('/register', async(req, res) => {
             uuid : uuu,
         }
         );
+
+        await client.db("profiles").createCollection(uuu)
+        await client.db("profiles").collection(uuu).insertOne(
+            {
+                uid : uuu,
+                name : "NIL",
+                age : "NIL",
+                email : email,
+                Occupation : "NIL",
+                Married: "No",
+                Bio : "NIL",
+                Full_Name : "NIL",
+                Linkedin : "NIL",
+                Github : "NIL",
+                Instagram : "NIL",
+                username : userid,
+                profile_pic : ""
+              }
+        )
       })
       .catch((error) => {
         console.log(error);
@@ -207,20 +241,6 @@ app.post('/register', async(req, res) => {
     }
   });
 
-const details = {
-    "uid" : "NIL",
-    "name" : "NIL",
-    "age" : "NIL",
-    "email" : "NIL",
-    "Occupation" : "NIL",
-    "Married": "NIL",
-    "Bio" : "NIL",
-    "Full_Name" : "NIL",
-    "Linkedin" : "NIL",
-    "Github" : "NIL",
-    "Instagram" : "NIL",
-    "username" : "NIL"
-  };
 
 app.get("/getprofile/:uid", async(rq, rs) => {
     try{
