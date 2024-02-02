@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import "./taskpage.css";
+import { useLocation, useParams } from "react-router-dom";
 import Nv from "./topnav";
 import Ham from "./ham";
 
 
-const TaskDetails = () => {
+const TaskDetails = (props) => {
+  const locc = useLocation();
   const { taskId } = useParams();
   const [tasks, settasks] = useState([]);
   useEffect(() => {
     fetch("https://task-scheduler-kt4g.onrender.com/getall", {
       method: "POST",
     body: JSON.stringify({
-      "uuid" : localStorage.getItem("uuid"),
+      "uuid" : locc.state.uuid,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,9 @@ const TaskDetails = () => {
 
   return (
     <>
-     {window.innerWidth < 450 ? <Ham /> : <Nv />}
+     {window.innerWidth < 450 ? <Ham userid={locc.state.userid} uuid={locc.state.uuid} />
+      : 
+      <Nv userid={locc.state.userid} uuid={locc.state.uuid} />}
     <div className="task-details-container">
       <h1 className="task-details-heading">Task Details</h1>
       {task && (

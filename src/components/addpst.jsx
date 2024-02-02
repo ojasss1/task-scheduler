@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Nv from "./topnav";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Ham from "./ham";
 
 const Addpst = () => {
   const par = useParams();
+  const locc = useLocation();
   const navv = useNavigate();
+  const uu = locc.state.userid;
+  const uuu = locc.state.uuid;
   const [fdata, setfdata] = useState({
-    username: localStorage.getItem("userid"),
-    uuid : localStorage.getItem("uuid"),
+    username: locc.state.userid,
+    uuid : locc.state.uuid,
     task_heading: "",
     description: "",
     completed: false,
@@ -22,10 +25,6 @@ const Addpst = () => {
 
   const submit = (event) => {
     event.preventDefault();
-    if (!localStorage.getItem("userid")) {
-      alert("Not logged in");
-      return;
-    }
 
     console.log(fdata);
 
@@ -39,12 +38,12 @@ const Addpst = () => {
       .then((res) => res.text())
       .then((data) => {
         if (data === "inserted") {
-          navv(`/home`);
+          navv(`/home`, {state:{ userid: locc.state.userid, uuid: locc.state.uuid}});
         }
         else{
           alert(data);
           setTimeout(() => {
-            navv('/home')},
+            navv('/home', {state:{ userid: locc.state.userid, uuid: locc.state.uuid}})},
             1000
           );
         }
@@ -54,7 +53,9 @@ const Addpst = () => {
 
   return (
     <div>
-      {window.innerWidth < 450 ? <Ham /> : <Nv />}
+      {window.innerWidth < 450 ? <Ham userid={locc.state.userid} uuid={locc.state.uuid} /> 
+      : 
+      <Nv userid={locc.state.userid} uuid={locc.state.uuid} />}
       <form
         onSubmit={submit}
         style={{
@@ -68,12 +69,12 @@ const Addpst = () => {
         <label htmlFor="discussion_heading" style={{ marginBottom: "8px" }}>
           Title:
         </label>
-        <input name="task_heading" placeholder="Enter the title of the new Task ..." required={true}
+        <input className="border-2 border-black"name="task_heading" placeholder="Enter the title of the new Task ..." required={true}
          value={fdata.task_heading} onChange={changefdata} style={{ padding: "8px", marginBottom: "16px", width : "70%" }}/>
         <label htmlFor="content" style={{ marginBottom: "8px" }}>
           Content:
         </label>
-        <textarea
+        <textarea className="border-2 border-black"
           name="description"
           placeholder="Enter the description of the Task ..."
           required={true}

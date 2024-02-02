@@ -6,12 +6,14 @@ import Ham from "./ham";
 const Blank = () => {
     const nav = useNavigate();
     useEffect(() => {
-        localStorage.getItem("userid") ? nav("/home") : nav("/login");
+        nav("/login");
     },[])
     return(
         <div>
             
-            {window.innerWidth < 450 ? <Ham /> : <Nv />}
+            {window.innerWidth < 450 ? <Ham userid = "" uuid = ""/> 
+            : 
+            <Nv userid = "" uuid = "" />}
         </div>
     );
 }

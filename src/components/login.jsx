@@ -35,17 +35,15 @@ const Login = () => {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    setrstext(<img src={load} height={"80px"} />);
+    setrstext(<img src={load} className="h-[80px]" />);
     signInWithEmailAndPassword(auth, fdata.email, fdata.passwd)
     .then((userCredential) => {
 
       setrstext("Login Successfull");
       const user = userCredential.user;
-      localStorage.setItem("uuid", user.uid);
-      // console.log(user);
+      console.log(user);
       setTimeout(() => {
-        navv(`/home`, { state: { userid: fdata.username } });
-        localStorage.setItem("userid", user.displayName);
+        navv(`/home`, { state: { userid: user.displayName, uuid : user.uid } });
       }, 500);
 
     })
@@ -89,6 +87,7 @@ const Login = () => {
         </label>
         <input type="email" name="email" placeholder="Enter your email address" required={true} onChange={handlefdata} value={fdata.email}
           style={{ padding: "10px", marginBottom: "16px", borderRadius: "5px" }}
+          className="border-2 border-black"
         />
         <label htmlFor="passwd" style={{ marginBottom: "8px" }}>
           Password
@@ -100,17 +99,18 @@ const Login = () => {
           required={true}
           onChange={handlefdata}
           value={fdata.passwd}
+          className="border-2 border-black"
           style={{ padding: "10px", marginBottom: "16px", borderRadius: "5px" }}
         />
         <button
           type="submit"
-          style={{width: "fit-content", margin: "auto", padding: "10px 20px", backgroundColor: "orange",color: "white", border: "none",borderRadius: "5px",
+          style={{width: "fit-content", margin: "auto",marginBottom : "15px", padding: "10px 20px", backgroundColor: "orange",color: "white", border: "none",borderRadius: "5px",
             cursor: "pointer",
           }}
         >
           Login
         </button>
-        <p>
+        <p className="m-[10px]">
           Don't have an account? <Link to="/signup">Signup</Link>
         </p>
         {restxt && <p style={{margin: "auto", backgroundColor :"blue", borderRadius : "10px", padding : "8px 16px", color :"white"}}>{restxt}</p>}

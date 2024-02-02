@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./tasklist.css";
 import del from "./delete.svg"; 
 import complete from "./complete.svg";
 import undo from "./undo.png";
 import { Link } from "react-router-dom";
 
-const TaskList = () => {
+const TaskList = (props) => {
   const [task, setTasks] = useState([
   ]);
 
@@ -13,7 +12,7 @@ const TaskList = () => {
     fetch("https://task-scheduler-kt4g.onrender.com/getall", {
       method: "POST",
     body: JSON.stringify({
-      "uuid" : localStorage.getItem("uuid"),
+      "uuid" : props.uuid,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +28,7 @@ const TaskList = () => {
     fetch("https://task-scheduler-kt4g.onrender.com/deltask", {
       method: "POST",
     body: JSON.stringify({
-      "uuid" : localStorage.getItem("uuid"),
+      "uuid" : props.uuid,
       "id" : id,
     }),
     headers: {
@@ -60,7 +59,7 @@ const TaskList = () => {
     fetch("https://task-scheduler-kt4g.onrender.com/complete",  {
       method: "POST",
     body: JSON.stringify({
-      "uuid" : localStorage.getItem("uuid"),
+      "uuid" : props.uuid,
       "id" : id,
     }),
     headers: {
@@ -108,14 +107,14 @@ const TaskList = () => {
         <Link to="/addtask" style={{backgroundColor : "#fca311",
       padding : "4px", borderRadius : "4px",
       color : "white",
-      }}>Add Task</Link>
+      }} state={{userid : props.userid, uuid : props.uuid}}>Add Task</Link>
       </div>
       <ul>
         {task.map((task) => (
           <li key={task._id} style={{
             textAlign : "right",
           }}>
-            <Link to={`/task/${task._id}`}><div
+            <Link to={`/task/${task._id}`} state={{userid : props.userid, uuid : props.uuid}}><div
               style={{ textDecoration: task.completed ? "line-through" : "none",
             wordBreak : "break-word" }}
             >
@@ -123,11 +122,11 @@ const TaskList = () => {
             </div>
             </Link>
             <div>
-                {task.completed ? <img className="ii" src={undo} height={"50px"}
+                {task.completed ? <img className="ii inline h-[50px]" src={undo} 
                  onClick={() => handleToggleComplete(task._id)}/> 
                 : 
-                <img className="ii" src={complete} onClick={() => handleToggleComplete(task._id)}/>}
-              <img className="ii" src={del} height={"50px"} 
+                <img className="ii inline h-[50px]" src={complete} onClick={() => handleToggleComplete(task._id)}/>}
+              <img className="ii inline h-[50px]" src={del}
               style={{marginLeft : "10px"}}
               onClick={() => handleDeleteTask(task._id)}/>
             </div>

@@ -207,9 +207,94 @@ app.post('/register', async(req, res) => {
     }
   });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+const details = {
+    "uid" : "NIL",
+    "name" : "NIL",
+    "age" : "NIL",
+    "email" : "NIL",
+    "Occupation" : "NIL",
+    "Married": "NIL",
+    "Bio" : "NIL",
+    "Full_Name" : "NIL",
+    "Linkedin" : "NIL",
+    "Github" : "NIL",
+    "Instagram" : "NIL",
+    "username" : "NIL"
+  };
+
+app.get("/getprofile/:uid", async(rq, rs) => {
+    try{
+        const uuid = rq.params.uid;
+        const profile_data = await client.db("profiles").collection(uuid).findOne();
+
+        rs.send({
+            msg : profile_data
+        });
+    } 
+    catch(e){
+        console.log(e);
+        rs.send({
+            msg : "Error"
+        })
+    }
 });
+
+app.get("/testing", async(rq, rs) => {
+    try{
+        var all_users = [];
+        const result =  await client.db("test").listCollections();
+        const results = await result.toArray()
+        results.forEach(async (cl) => {
+            var pp = await client.db("test").collection(cl.name).findOne()
+            await client.db("profiles").collection(cl.name).updateOne({
+                Bio : "NIL",
+            }, {
+                $set : {
+                    profile_pic : "",
+                },
+            },{
+                upsert : true
+            })
+        });
+        // await client.db("profiles").createCollection(profile_data.uid)
+        // await client.db("profiles").collection(profile_data.uid).insertOne(profile_data);
+
+        rs.send("Done");
+    }
+    catch(e){
+        console.log(e); rs.send(e);
+    }
+});
+
+app.post("/update_profile", async(rq, rs) => {
+    try{
+        const data = rq.body;
+        delete data._id;
+        await client.db("profiles").collection(rq.body.uid).updateOne({}, {
+            $set : {
+                ...data
+            }
+        });
+        
+        rs.send({
+            msg : "Success",
+        })
+    }
+    catch(e){
+        console.log(e);
+        rs.send({
+            msg : e
+        })
+    }
+})
+
+app.get('*', (req, res) => {
+    res.redirect("/");
+});
+
+app.get("/", (rq, rs) => {
+    rs.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
 
 app.listen(5000, () => {
     console.log("running");

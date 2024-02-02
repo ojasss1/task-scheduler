@@ -7,6 +7,7 @@ import Home from "./home";
 import TaskDetails from "./taskpage";
 import Blank from "./blank";
 import Addpst from "./addpst";
+import Update_profile from "./update_profile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/" element={<Blank />} />
+        <Route exact path="/update_profile" element={<Update_profile />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Sgnup />} />
         <Route exact path="/profile" element={<Profile />} />
