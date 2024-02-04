@@ -41,7 +41,6 @@ const Login = () => {
 
       setrstext("Login Successfull");
       const user = userCredential.user;
-      console.log(user);
       setTimeout(() => {
         navv(`/home`, { state: { userid: user.displayName, uuid : user.uid } });
       }, 500);

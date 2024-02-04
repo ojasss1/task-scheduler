@@ -26,8 +26,6 @@ const Addpst = () => {
   const submit = (event) => {
     event.preventDefault();
 
-    console.log(fdata);
-
     fetch("https://task-scheduler-kt4g.onrender.com/add", {
       method: "POST",
       body: JSON.stringify(fdata),

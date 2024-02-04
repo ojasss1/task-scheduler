@@ -11,7 +11,6 @@ const Update_profile = () => {
 
     const handlesubmit = (e) => {
         e.preventDefault();
-        console.log(fdata)
 
         fetch("https://task-scheduler-kt4g.onrender.com/update_profile", {
             method : "POST",
@@ -35,9 +34,9 @@ const Update_profile = () => {
     }
 
     useEffect(() => {
-        (fdata.Married === "Yes") ? document.querySelectorAll("input")[5].checked = true
-        : document.querySelectorAll("input")[6].checked = true;
-    })
+        (locc.state.pro_data.Married === "Yes") ? document.getElementById("Yes").checked = true
+        : document.getElementById("No").checked = true;
+    }, [])
 
     const handlefdata = (e) => {
         const value = e.target.type === 'radio' ? e.target.id : e.target.value;
@@ -55,10 +54,6 @@ const Update_profile = () => {
 
         console.log(fdata.Married);
     }
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <div>
